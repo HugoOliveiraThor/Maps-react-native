@@ -4,6 +4,20 @@
 
 #### I use in this example the expo to work with the app 
 [Link to install and config expo with react-native](https://facebook.github.io/react-native/docs/getting-started.html)
+##### I will show an example how to install expo , remember this can change in the future :
+- Assuming that you have Node installed, you can use npm to install the Expo CLI command line utility:
+```
+npm install -g expo-cli
+```
+- Then run the following commands to create a new React Native project called "ExamplesReactNativeMaps":
+```
+expo init ExamplesReactNativeMaps
+cd ExamplesReactNativeMaps
+npm start
+```
+- After you give the npm start it will open a tab in browser with all about your app , i suggest you download the  `expo app` in your mobile.
+
+- [Link how to learn use expo](https://expo.io/learn)
 
 #### What we use in this example 
 * Create a MapView
