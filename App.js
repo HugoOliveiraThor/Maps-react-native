@@ -36,7 +36,6 @@ export default class App extends React.Component {
   
   render() {
     const {latitude, longitude} = this.state.places[0]
-    console.log(this.state.places[0])
     return (
       <View style={styles.container}>
         <MapView
