@@ -4,6 +4,9 @@ import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import MapView from 'react-native-maps'
 import { ScrollView } from 'react-native-gesture-handler';
 
+
+const {height, width} = Dimensions.get('window')
+
 export default class App extends React.Component {
   state = {
     places: [
@@ -16,7 +19,7 @@ export default class App extends React.Component {
       },
       {
         id: 2,
-        title: 'RocketSeat',
+        title: 'Hugos Thinking',
         description: 'Programação,empreendorismo,mindset',
         latitude: -15.811810,
         longitude: -48.023749
@@ -65,9 +68,25 @@ export default class App extends React.Component {
           horizontal
           showsHorizontalScrollIndicator={false}
           pagingEnabled
+          onMomentumScrollEnd= {e => {
+            const scrolled = e.nativeEvent.contentOffset.x
+            const place = (scrolled > 0) 
+            ? scrolled / Dimensions.get('window').width
+            : 0
+            const { latitude , longitude } = this.state.places[place.toFixed(0)]
+            this.mapView.animateToCoordinate({
+              latitude,
+              longitude
+            })
+          }} // With this we can know exactly how many scroll was given
           >
-          <View style={styles.place}></View>
-          <View style={styles.place}></View>  
+          {this.state.places.map(place => (
+            <View key={place.id} style={styles.place}>
+              <Text>{place.title}</Text>
+              <Text>{place.description}</Text>
+            </View>
+          ))}
+            
         </ScrollView>
       </View>
       
@@ -75,7 +94,6 @@ export default class App extends React.Component {
   }
 }
 
-const {height, width} = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   container: {
