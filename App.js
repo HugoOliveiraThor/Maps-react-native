@@ -6,22 +6,33 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export default class App extends React.Component {
   state = {
-    latitude: -15.815146,
-    longitude: -48.014597 
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.mapView.animateToCoordinate({
-        latitude: -15.805146,
-        longitude: -48.012597
-      }, 1000)
-    }, 3000)
-
+    places: [
+      {
+        id: 1,
+        title: 'Casa do café',
+        description: 'Café quentinho...',
+        latitude: -15.815146,
+        longitude: -48.014597,
+      },
+      {
+        id: 2,
+        title: 'RocketSeat',
+        description: 'Programação,empreendorismo,mindset',
+        latitude: -15.811810,
+        longitude: -48.023749
+      },
+      {
+        id: 3,
+        title: 'Joseph House',
+        description: 'Joseph , are you at home ?',
+        latitude: -15.810592, 
+        longitude: -48.021989
+      }
+    ] 
   }
 
   render() {
-    const {latitude, longitude} = this.state
+    const {latitude, longitude} = this.state.places[0]
     return (
       <View style={styles.container}>
         <MapView
@@ -29,8 +40,8 @@ export default class App extends React.Component {
           initialRegion={{
             latitude,
             longitude,
-            latitudeDelta: 0.0042,
-            longitudeDelta: 0.0031
+            latitudeDelta: 0.0142,
+            longitudeDelta: 0.0231
           }}
           style={styles.mapView}
           rotateEnabled={false}
@@ -39,12 +50,15 @@ export default class App extends React.Component {
           showsPointsOfInterest={false}
           showBuildings={false}
         >
-        <MapView.Marker
+        { this.state.places.map(place =>(
+          <MapView.Marker
+           key={place.id}
            coordinate={{
-            latitude: -15.815146,
-            longitude: -48.014597  
+            latitude: place.latitude,
+            longitude: place.longitude  
           }}
         />
+        ) )}
         </MapView>
         <ScrollView
           style={styles.placesContainer}
