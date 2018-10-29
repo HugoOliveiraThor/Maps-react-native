@@ -29,6 +29,6 @@ npm start
 * In propertie ScrollView we used the function onMomentumScrollEnd that tell us how many scrolls we give 
 * We work with propertie mapView.animateToCoordinate to animate when we select places in map 
 
-### This is just a simple example how to use react-native-maps ,the library offer a lot more . 
+### This is just a simple example how to use react-native-maps, the library offer a lot more . 
 
 
