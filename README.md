@@ -1,2 +1,3 @@
-# Example how to use Maps in react-native use the library react-native-maps create by Airbnb
-[The repository of react-native-maps](https://github.com/react-community/react-native-maps)
+# Simple example how to use Maps in react-native
+## We are going to use the react-native-maps created by Airbnb
+[Link of repository of react-native-maps](https://github.com/react-community/react-native-maps)
