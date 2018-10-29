@@ -12,10 +12,10 @@ export default class App extends React.Component {
     places: [
       {
         id: 1,
-        title: 'Casa do café',
-        description: 'Café quentinho...',
+        title: 'House of coffee',
+        description: ' Hot coffee',
         latitude: -15.815146,
-        longitude: -48.014597,
+        longitude: -48.014597
       },
       {
         id: 2,
@@ -33,9 +33,10 @@ export default class App extends React.Component {
       }
     ] 
   }
-
+  
   render() {
     const {latitude, longitude} = this.state.places[0]
+    console.log(this.state.places[0])
     return (
       <View style={styles.container}>
         <MapView
@@ -55,6 +56,9 @@ export default class App extends React.Component {
         >
         { this.state.places.map(place =>(
           <MapView.Marker
+           ref={mark => place.mark = mark} // Now each places have the reference to the mark
+           title={place.title}
+           description={place.description}
            key={place.id}
            coordinate={{
             latitude: place.latitude,
@@ -68,23 +72,28 @@ export default class App extends React.Component {
           horizontal
           showsHorizontalScrollIndicator={false}
           pagingEnabled
-          onMomentumScrollEnd= {e => {
-            const scrolled = e.nativeEvent.contentOffset.x
-            const place = (scrolled > 0) 
-            ? scrolled / Dimensions.get('window').width
-            : 0
-            const { latitude , longitude } = this.state.places[place.toFixed(0)]
+          onMomentumScrollEnd= {e => { // With this we can know exactly how many scroll was given
+            const place = (e.nativeEvent.contentOffset.x > 0)
+              ? e.nativeEvent.contentOffset.x / Dimensions.get('window').width
+              : 0;
+            
+            const { latitude , longitude, mark } = this.state.places[place.toFixed(0)]
+
             this.mapView.animateToCoordinate({
               latitude,
               longitude
-            })
-          }} // With this we can know exactly how many scroll was given
+            }, 500)
+            
+            setTimeout(() => {
+              mark.showCallout()
+            }, 500)
+          }} 
           >
           {this.state.places.map(place => (
             <View key={place.id} style={styles.place}>
-              <Text>{place.title}</Text>
-              <Text>{place.description}</Text>
-            </View>
+            <Text style={styles.title}>{ place.title }</Text>
+            <Text style={styles.description}>{ place.description }</Text>
+          </View>
           ))}
             
         </ScrollView>
